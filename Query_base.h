@@ -8,8 +8,8 @@ class Query_base{
 	protected:
 	virtual ~Query_base()=default;
 	private:
-		virtual Queryresult eval(const Textquery&)const = 0;
-		virtual string rep() const =0;
+		virtual Queryresult eval(const Textquery&)const=0;
+		virtual string rep()const=0;
 };
 
 class WordQuery:public Query_base{
@@ -37,10 +37,17 @@ class Query{
 			return q->eval(t);
 		}
 		string rep() const {return q->rep();}
+		void storage(const Queryresult &qr);
 	private:
 		Query(shared_ptr<Query_base> query):q(query){};
 		shared_ptr<Query_base> q;
+		map<int,shared_ptr<map<string,int>>> history;
 };
+inline void Query::storage(const Queryresult &qr)
+{
+	shared_ptr<map<string,int>> a(new map<string,int>({{qr.qs,qr.lines->size()}}));
+	
+}
 class NotQuery:public Query_base{
 	friend Query operator ~(const Query &);
 	NotQuery(const Query &q):query(q){};

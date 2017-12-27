@@ -6,6 +6,8 @@
 #include<map>
 #include<fstream>
 #include<memory>
+
+
 class Queryresult;
 class Textquery{
 	public:
@@ -17,6 +19,7 @@ class Textquery{
 };
 class Queryresult{
 	public:
+	friend class Query;
 	friend std::ostream &print(std::ostream &os,const Queryresult &q);
 	using line_no=std::vector<std::string>::size_type;
 	Queryresult(const std::string &s,std::shared_ptr<std::set<int>> l,std::shared_ptr<std::vector<std::string>> d):qs(s),lines(l),data(d){}

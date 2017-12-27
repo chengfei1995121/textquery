@@ -14,9 +14,9 @@ ostream &print(ostream &os,const Queryresult &q)
 
 int main()
 {
-	ifstream file("cf.text");
+	ifstream file("test.text");
 	Textquery text(file);
-	Query Q=~Query("aa")&Query("cc");
+	Query Q=~Query("aa");
 	Queryresult result=Q.eval(text);
 	print(cout,result);
 }
